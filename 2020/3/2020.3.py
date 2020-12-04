@@ -1,5 +1,6 @@
 import os
 import re
+import requests
 
 
 def part1(mapArray, xslope, yslope):
@@ -16,24 +17,16 @@ def part1(mapArray, xslope, yslope):
                 row = row[:xpos] + 'O' + row[xpos+1:]
             xpos += xslope
         ypos += 1
-        if xpos >= len(row) - 1:
-            xpos -= len(row) - 1
-        print(row, end='')
+        if xpos >= len(row):
+            xpos -= len(row)
+        print(row)
     print(f"\nTree count: {treeCount}")
     return treeCount
 
-def parse_map(lines):
-    mapArray = []
-    for line in lines:
-        mapArray.insert(line)
-    return mapArray
 
 def read_file():
-    file = os.path.join(os.path.dirname(__file__), 'input.txt')
-    lines = ''
-    values = set()
-    with open(file, 'r') as file:
-        lines = file.readlines()
+    session = os.environ['AOC_SESSION']
+    lines = requests.get('https://adventofcode.com/2020/day/3/input', cookies=dict(session=session)).text.strip().split('\n')
     slope1 = part1(lines, 1, 1)
     slope2 = part1(lines, 3, 1) # part 1 answer
     slope3 = part1(lines, 5, 1)
