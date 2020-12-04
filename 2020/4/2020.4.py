@@ -1,20 +1,11 @@
 import os
 import re
 import requests
+import utils
 
 
 def read_file():
-    lines = ""
-    filename = file = os.path.join(os.path.dirname(__file__), 'input.txt')
-    try:
-        with open(filename, 'r+') as file:
-            lines = file.read()
-    except:
-        session = os.environ['AOC_SESSION']
-        with open(filename, 'w+') as file:
-            lines = requests.get('https://adventofcode.com/2020/day/4/input', cookies=dict(session=session)).text
-            file.write(lines)
-
+    lines = utils.get_input("2020", "4")
     idArray = lines.replace("\n\n", " |").replace("\n", " ").split("|")    
     validIds = 0
     for id in idArray:

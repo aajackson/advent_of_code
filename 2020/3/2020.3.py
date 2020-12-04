@@ -1,6 +1,7 @@
 import os
 import re
 import requests
+import utils
 
 
 def part1(mapArray, xslope, yslope):
@@ -25,8 +26,7 @@ def part1(mapArray, xslope, yslope):
 
 
 def read_file():
-    session = os.environ['AOC_SESSION']
-    lines = requests.get('https://adventofcode.com/2020/day/3/input', cookies=dict(session=session)).text.strip().split('\n')
+    lines = utils.get_input("2020", "3")
     slope1 = part1(lines, 1, 1)
     slope2 = part1(lines, 3, 1) # part 1 answer
     slope3 = part1(lines, 5, 1)
