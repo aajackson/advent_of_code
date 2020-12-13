@@ -14,3 +14,6 @@ def get_input(year: str, day: str) -> str:
             lines = requests.get(f'https://adventofcode.com/{year}/day/{day}/input', cookies=dict(session=session)).text.strip()
             file.write(lines)
             return lines
+
+def add_tuples(left: tuple, right: tuple) -> tuple:
+    return tuple(map(lambda x, y: x + y, left, right)) # weird tuple math
