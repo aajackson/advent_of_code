@@ -24,7 +24,7 @@ constraints = [
 
 found = []
 diff = 0
-lastFound = 0
+lastFound = 9763809 # start at zero
 for i in range(487 - 54 , 10000000, 487):
     #if (i + 54) % 487 == 0 and (i + 23) % 421 == 0:
     if constraints[0](i) and constraints[1](i):
@@ -37,9 +37,14 @@ for i in range(487 - 54 , 10000000, 487):
             print(f"Diff: {found[1]-found[0]}")
             break
 
-
-for currentConstraintsCount in range(2, len(constraints)):
+# New diff: 205027
+# t: 537594  -  2 contstraints passed
+# New diff: 8406107
+# t: 9763809  -  3 contstraints passed
+startConstraints = 3
+for currentConstraintsCount in range(startConstraints, len(constraints)):
     found = []
+    
     for t in range(lastFound, 200000000000000, diff):
         currentConstraintsPassed = True
         for i in range(currentConstraintsCount):
@@ -55,12 +60,16 @@ for currentConstraintsCount in range(2, len(constraints)):
             if len(found) >= 2:
                 diff = found[1]-found[0]
                 print(f"New diff: {diff}")
-                print(f"t: {t} {currentConstraintsCount} contstraints passed")
+                print(f"t: {t}  -  {currentConstraintsCount} contstraints passed")
                 break
         else:
             #print(f"Failed to pass {currentConstraintsCount} constraints")
             pass
-        
+
+    if len(found) < 2:
+        # something went wrong, couldn't find a difference that matched all the given contstraints
+        print(f"Last t found: {found[-1]}")
+        break
             
                 
 
